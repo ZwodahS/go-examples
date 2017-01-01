@@ -33,7 +33,9 @@ func main() {
 	termbox.SetInputMode(termbox.InputEsc)
 	termbox.Flush()
 
-	region := tbregion.NewRegion(10, 10, termbox.Cell{Ch: ' ', Fg: termbox.ColorDefault, Bg: termbox.ColorDefault})
+	mainRegion := tbregion.NewRegion(100, 100, termbox.Cell{Ch: ' ', Fg: termbox.ColorDefault, Bg: termbox.ColorDefault})
+
+	region := mainRegion.NewRegion(10, 10, termbox.Cell{Ch: ' ', Fg: termbox.ColorDefault, Bg: termbox.ColorDefault})
 	region.DrawThinBorder()
 
 	region2 := region.NewRegion(5, 5, termbox.Cell{Ch: ' ', Fg: termbox.ColorDefault, Bg: termbox.ColorDefault})
@@ -62,12 +64,10 @@ loop:
 					}
 				}
 			}
-			termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-			region.Draw()
+			mainRegion.Draw()
 			termbox.Flush()
 		case <-update:
-			termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-			region.Draw()
+			mainRegion.Draw()
 			termbox.Flush()
 		}
 	}
